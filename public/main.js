@@ -8,24 +8,32 @@ const profileName = document.querySelector('#profile')
 
 for (let e of edit){
   e.addEventListener('click', function(){
-    fetch('messages', {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      
-      body: JSON.stringify({
-        id : e.id,
-        dogName : document.querySelector('.dogName').value,
-        msg : document.querySelector('.msg').value
+    console.log(this.parentNode.childNodes)
+    const input = this.parentNode.childNodes[1]
+    input.focus()
+    input.select()
+    input.addEventListener('keyup', editText)
+  
+  })
+}
 
-        
-      })
-     
+function editText(event){
+  const newText = event.target.value
+  const id = event.target.dataset.id // data attribute, in HTML is used to store valuable information that we need access to. 
+  fetch('edit', {
+    method: 'put',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    
+    body: JSON.stringify({
+      id, newText
+      
     })
-    .then(function (response) {
-      window.location.reload()
-    })
+   
+  })
+  .then(function (response) {
+    // window.location.reload()
   })
 }
 

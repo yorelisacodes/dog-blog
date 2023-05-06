@@ -44,24 +44,32 @@
 
       <div class="col-lg-12 d-flex well border">
         <h2><i class="fa-brands fa-blogger"></i>Messages</h2>
-        <ul class="messages">
+        <table class="messages">
+          <tr>
+            <th>Dog Name</th>
+            <th>Daily Message</th>
+            <th>Delete</th>
+          </tr>
           <% for(let i=0; i<messages.length; i++) {%>
-            <li class="message"  >
-              <span>
+            <tr class="message"  >
+              <td>
                 <%= messages[i].dogName %>
-              </span>
-              <span>
-                <%= messages[i].msg %>
-              </span>
+              </td>
+              <td>
+                <input data-id="<%=messages[i]._id %>" value="<%= messages[i].msg %>"><i class="fa fa-thin fa-pen-to-square"></i>
+               
+              </td>
+              
+             
               <!-- <input type="text" class="editting" > -->
               <!-- <button class="btn"  id="<%=messages[i]._id %>">edit</button> -->
-              <span><i id="<%=messages[i]._id %>" class="fa fa-thin fa-pen-to-square"></i></span>
-              <span><i id="<%=messages[i]._id %>" class="fa fa-trash" aria-hidden="true"></i></span>
-            </li>
+              
+              <td><i id="<%=messages[i]._id %>" class="fa fa-trash" aria-hidden="true"></i></span>
+            </tr>
 
 
             <% } %>
-        </ul>
+          </table>
 
         <h2>Add a message</h2>
         <% if (user.local.email) { %>
@@ -80,7 +88,7 @@
               </div>
 
               <div>
-                <button type="submit">Submit</button>
+                <button id="bottomButton" type="submit">Submit</button>
               </div>
 
 

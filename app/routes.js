@@ -73,12 +73,21 @@ module.exports = function(app, passport, db) {
     //   })
     // })
     
-    app.put('/messages', (req, res) => {
-      db.collection('messages').findOneAndPut({ _id: ObjectId(req.body.id), }, (err, result) => {
-        if (err) return res.send(500, err)
-        res.send('Message deleted!')
-      })
+    app.put('/edit', (req, res) => {
+      console.log(req.body)
+      db.collection('messages').findOneAndUpdate({ _id: ObjectId(req.body.id) }, 
+     {
+      $set: {
+        msg: req.body.newText
+      }
+    }, {
+      sort: {_id: -1},
+      upsert: true
+    }, (err, result) => {
+      if (err) return res.send(err)
+      res.send(result)
     })
+  })
 
     app.delete('/messages', (req, res) => {
       db.collection('messages').findOneAndDelete({ _id: ObjectId(req.body.id) }, (err, result) => {
